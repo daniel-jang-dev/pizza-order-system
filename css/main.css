@@ -1,0 +1,99 @@
+/*
+Name:  Yunha Jang
+Assignment:  Assignment2 (Pizza Order System)
+Due Date: Feb,23,2015
+
+Page Description: This is the main CSS file for this application and defines
+all of the styles required for all pages in the app.
+
+Files: index.hthml - Main page
+       css/main.css - the main style for this app
+       js/myFunction.js - Javascript functions & constants specific to this app
+       images/head.jpg - image used in this app
+*/
+
+#imgOrder{
+    position: absolute;
+    left: 26em;
+    opacity: 0.1;
+    display: block;
+    margin: 20px auto;
+    // z-index: -1;
+    width: 469px;
+    height: 182px;
+}
+#imgInvoice{
+    width: 402px;
+    height: 156px;
+    margin-top: 10px;
+}
+
+#invoice {
+    display: none;
+}
+#inputInfo label{
+    display: inline-block;
+    width: 6em;
+    float: left;
+    clear: left;
+    text-align: right;
+    margin-right: 0.5em;
+    margin-bottom: 0.5em;
+}
+fieldset{
+    width: 96%;
+    margin: 3px 0px;
+    border: 2px solid seagreen;
+}
+#inputInfo div {
+    float: left;
+    clear: right;
+    margin-left: 1em;
+    color: orangered;
+}
+#pizzaSize div{
+    float: left;
+    width: 24%;
+}
+#toppings div{
+    float: left;
+    width: 32%;
+}
+#submit, #clear {
+    margin: 8px 3px;
+}
+input[type="text"]{
+    float: left;
+    background: none;
+}
+#warning {
+    color: red;
+}
+table {
+    border: 2px solid olivedrab;
+    width: 25em;
+    border-collapse: collapse;
+    margin: 1em;
+}
+#outputInfo th, #outputInfo td {
+    text-align: left;
+    width: 12em;
+    margin: 1em;
+    padding: 0.5em;
+}
+th {
+    color: darkgreen;
+    font-size: 1.2em;
+}
+b {
+    margin-right: .2em;
+}
+#price td {
+    border: 1px olivedrab dashed;
+    padding: .2em;
+    margin: 1em;
+}
+input[type="button"] {
+    width: 9em;
+    height: 2em;
+}
