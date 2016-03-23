@@ -1,7 +1,5 @@
 /*
 Name:  Yunha Jang
-Assignment:  Assignment2 (Pizza Order System)
-Due Date: Feb,23,2015
 
 Page Description: This contains the constants and functions needed for
 this application, including data validation functions.
@@ -25,7 +23,7 @@ var TOPPING_LARGE = 1.00;
 var TOPPING_EXLARGE = 1.10;
 var HST_RATE = 0.13;
 
-// Srrays containing constants
+// Arrays containing constants
 var mySizePrice = [SMALL_COST, MEDIUM_COST, LARGE_COST, EXLARGE_COST];
 var myToppingPrice = [TOPPING_SMALL, TOPPING_MEDIUM, TOPPING_LARGE, TOPPING_EXLARGE];
 
@@ -48,8 +46,10 @@ function validate() {
     isValidPhoneNumber = validatePhoneNumber();
     isSizeSelected = validateSize();
     // if all of them are valid, display the invoice
-    if(isValidText && isValidPostalCode && isValidPhoneNumber && isSizeSelected) {
-        displayInvoice();
+    if(isValidText && isValidPostalCode && isValidPhoneNumber && isSizeSelected) 
+    {
+        populateSession();
+        moveToPage('invoice.html');
     }// else, the invoice will not be displayed
 }
 
@@ -62,20 +62,22 @@ function validateText() {
     // check each text box is empty. If it is, show the message
     for(var i = 0 ; i < 6 ; i++) {
         // text box nodes
+        
         var x = document.forms['order'].elements[i];
         // trick: remove space from name to make id
         var id = x.name.replace(/ /, "");
-        // error nodes
+        // error message
         var error = document.getElementById(id+'ErrorMsg');
         // if it is empty, display the message
-        if(x.value.length === 0) {
+        if(x.name.length === 0) {
+
             error.innerHTML = "<b>"+x.name+"</b>should be filled";
             // increment the number of invalid(empty) text boxes
             invalidCount++;
-        // if it is not empty, no error message will be displayed
-        } else {
-            error.innerHTML = "";
-        }
+            // if it is not empty, no error message will be displayed
+            } else {
+                error.innerHTML = "";
+            }
     } // if there is no invalid(empty) text box, return true, else return false
     if(invalidCount === 0) {
         return true;
@@ -164,14 +166,14 @@ function validateSize(){
     }
 }
 
-// Method 2: to hide the order page and display the invoice
+// Method 2: redirect to next page to display the invoice
+
+function moveToPage(urlStr) {
+    window.location = urlStr;
+}
 function displayInvoice() {
 
-    // hide the order page
-    document.getElementById("container").style.display = "none";
-    // display the invoice container
-    document.getElementById("invoice").style.display = "inline";
-    // display the cumtomer's information, pizza size, toppings and prices
+    // display the customer's information, pizza size, toppings and prices
     displayCustomInfo();
     displaySize();
     displayToppings();
@@ -182,76 +184,37 @@ function displayInvoice() {
 // Method 2.1: to display customer's information
 function displayCustomInfo() {
     
-    // grab user's input and set them into invoice information
+    // grab user's input from session object and set them into invoice information
     // 1) name
-    document.getElementById("Name").innerHTML = document.forms['order'].elements[0].value;
-    // 2) address(Street, City, Province)
-    document.getElementById("Address").innerHTML = 
-            document.forms['order'].elements[1].value +'<br>'+
-            document.forms['order'].elements[2].value +', '+
-            document.forms['order'].elements[3].value;
+    document.getElementById("iName").innerHTML = sessionStorage.getItem('sName');
+
+    // 2) address(Street, City, Province, Postal Code)
+    document.getElementById("iAddress").innerHTML = sessionStorage.getItem('sAddress');
+
     // 3) Phone number
-    document.getElementById("Phone").innerHTML = "<b>Phone: </b> " +
-            document.forms['order'].elements[5].value;
-    // 4) Postal Code
-    document.getElementById("PostalCode").innerHTML = document.forms['order'].elements[4].value;
+    document.getElementById("iPhone").innerHTML = sessionStorage.getItem('sPhone');
 }
 
 // Method 2.2: to display pizza size and price for the selected pizza size
 function displaySize() {
 
-    // get the index of size from Method 1.4 validateSize()
-    var i = selectedSizeIndex;
-    // node of selected pizza size
-    var x = document.forms['order']["size"][i];
-    // display the pizza size
-    var size = document.getElementById("selectedSize");
-    size.innerHTML = "<b>Size:</b> " + x.value;
-    // display the price for the selected pizza size
-    var price = document.getElementById("sizePrice");
-    price.innerHTML = "$" + mySizePrice[i];
+    document.getElementById("selectedSize").innerHTML = sessionStorage.getItem('sSize');
+    document.getElementById("sizePrice").innerHTML = "$ " + sessionStorage.getItem('sSPrice');
 }
 
 // Method 2.3: to display selected toppings and price for selected toppings
 // on the basis of pizza size
 function displayToppings() {
-    
-    // node for display topping list
-    var x = document.getElementById("selectedToppings");
-    var result = x.innerHTML;
-    result = "<b>Toppings:</b><br>";
-    
-    // check which topping is selected 
-    for(var i = 0 ; i < 9 ; i++) {
-        var topping = document.forms['order'].elements[i+12];
-        // If it is selected, add it to the topping list
-        if(topping.checked){
-            result += topping.value +", ";
-            // and increment the number of selected toppings
-            toppingCount++;
-        }
-    }
-    // trick: remove the "," in the end of the list
-    x.innerHTML = result.substring(0, result.length-2);
-    // calculate the price for toppings on the basis of pizza size
-    // from Method 1.4 validateSize()
-    var price  = toppingCount * myToppingPrice[selectedSizeIndex];
-    // display the price in 2 decimal form
-    var x = document.getElementById("toppingsPrice");
-    x.innerHTML = "$" + price.toFixed(2);
+    document.getElementById("selectedToppings").innerHTML = sessionStorage.getItem('sToppings');
+    document.getElementById("toppingsPrice").innerHTML = "$ " + parseFloat(sessionStorage.getItem('sTPrice')).toFixed(2);
 }
 
 // Method 2.4: to display the HST from subtotal
 function displayHST() {
     
-    // grab pizza size index from Method 1.4 validateSize()
-    var i = selectedSizeIndex;
-    // calculate subtotal using arrays containing Constants for price
-    subTotal = mySizePrice[i] + myToppingPrice[i] * toppingCount;
-    // calculate the HST
-    myHST = subTotal * HST_RATE;
-    // display the HST in 2 decimal form
-    document.getElementById("HST").innerHTML = "$" + myHST.toFixed(2);
+    subTotal = parseFloat(sessionStorage.getItem('sSPrice')) + parseFloat(sessionStorage.getItem('sTPrice'));
+    var myHST = subTotal * HST_RATE;
+    document.getElementById("HST").innerHTML = "$ " + myHST.toFixed(2);
 }
 
 // Method 2.5: to display the total price
@@ -259,5 +222,32 @@ function displayTotalPrice() {
     
     // calculate the total price and display it in 2 decimal form
     var total = subTotal * (1 + HST_RATE);
-    document.getElementById("totalPrice").innerHTML = "$" + total.toFixed(2);
+    document.getElementById("totalPrice").innerHTML = "$ " + total.toFixed(2);
+}
+
+
+function populateSession() {
+    
+    sessionStorage.setItem('sName', document.forms['order'].elements[0].value);
+    sessionStorage.setItem('sAddress', document.forms['order'].elements[1].value +' '+ document.forms['order'].elements[2].value +', '+document.forms['order'].elements[3].value + ' '+document.forms['order'].elements[4].value);
+    sessionStorage.setItem('sPhone', document.forms['order'].elements[5].value);
+    sessionStorage.setItem('sSize', document.forms['order']["size"][selectedSizeIndex].value);
+    sessionStorage.setItem('sSPrice', (mySizePrice[selectedSizeIndex]).toString());
+    
+    var result =''
+    for(var i = 0 ; i < 9 ; i++) {
+        var topping = document.forms['order'].elements[i+12];
+        // If it is selected, add it to the topping list
+        if(topping.checked){
+            result += '-  '+ topping.value +"<br>";
+            // and increment the number of selected toppings
+            toppingCount++;
+        }
+    }// trick: remove the "," in the end of the list
+    result = result.substring(0, result.length - 2);
+    
+    sessionStorage.setItem('sToppings', result);
+    
+    sessionStorage.setItem('sTPrice', (toppingCount * myToppingPrice[selectedSizeIndex]).toString()); 
+    
 }

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<?PHP
+    
+
+?>
+<html>
+<head>
+    <title>Pizza Order System</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='css/bootstrap.css' rel='stylesheet'/>
+	<link href='css/bootstrap-theme.css' rel='stylesheet'/>
+    <link rel="stylesheet" type="text/css" href="css/main.css" />  
+    <script src="js/myFunctions.js"></script>
+</head>
+<body onload="displayInvoice()">
+<div class="container">
+
+    <div id="invoice">
+
+
+        <h2> Invoice </h2>
+
+        <table class="table">
+            <tr>
+                <td>Name: </td>
+                <td><div id ="iName"></div></td>
+            </tr>
+            <tr>
+                <td>Phone: </td>
+                <td><div id="iPhone"></div></td>
+            </tr>
+            <tr>
+                <td>Address: </td>
+                <td><div id="iAddress"></div></td>
+            </tr>
+            <tr>
+                <td>Pizza Size: <div id="selectedSize"></div></td>
+                <td><div id="sizePrice"></div></td>
+            </tr>
+            <tr>
+                <td>Topping List: <div id="selectedToppings"></div></td>
+                <td><div id="toppingsPrice"></div></td>
+            </tr>
+            <tr>
+                <td>HST: </td>
+                <td><div id="HST"></div></td>
+            </tr>
+            <tr>
+                <td>Total: </td>
+                <td><div id="totalPrice"></div></td>
+            </tr>
+        </table>
+
+        <input type="button" id="anotherOrder" name="anotherOrder" class="btn btn-success" value="Another Order" onclick="moveToPage('index.html')"><br>
+    </div>
+</div>
+</body>
+</html>
