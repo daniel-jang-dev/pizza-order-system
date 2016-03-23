@@ -1,6 +1,6 @@
 # Pizza Order System
 
-This is a JavaScript web app.
+This is a JavaScript web app using localStorage.
 
 It gets information about customer, pizza size and toppings. 
 
