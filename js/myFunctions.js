@@ -1,17 +1,3 @@
-/*
-Name:  Yunha Jang
-
-Page Description: This contains the constants and functions needed for
-this application, including data validation functions.
-It also contains some contants that are used on all pages of the app
-such as the pizza price, topping price and HST rate.
-
-Files: index.hthml - Main page
-       css/main.css - the main style for this app
-       js/myFunction.js - Javascript functions & constants specific to this app
-       images/head.jpg - image used in this app
-*/
-
 // Constants
 var SMALL_COST = 8.99;
 var MEDIUM_COST = 10.99;
@@ -69,7 +55,7 @@ function validateText() {
         // error message
         var error = document.getElementById(id+'ErrorMsg');
         // if it is empty, display the message
-        if(x.name.length === 0) {
+        if(x.value.length === 0) {
 
             error.innerHTML = "<b>"+x.name+"</b>should be filled";
             // increment the number of invalid(empty) text boxes
@@ -130,7 +116,7 @@ function validatePhoneNumber() {
     // if it is not valid, display the error message
     if(!isValid) {
         document.getElementById("PhoneErrorMsg").innerHTML =
-                "<b>Phone Number</b> is not valid";
+                "<b>Phone Number</b> should be like 1234567890 or 123-456-7890";
     // else, no error message will be displayed
     } else {
         document.getElementById("PhoneErrorMsg").innerHTML = "";
@@ -247,7 +233,5 @@ function populateSession() {
     result = result.substring(0, result.length - 2);
     
     sessionStorage.setItem('sToppings', result);
-    
     sessionStorage.setItem('sTPrice', (toppingCount * myToppingPrice[selectedSizeIndex]).toString()); 
-    
 }
