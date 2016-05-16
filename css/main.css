@@ -1,53 +1,33 @@
-/*
-Name:  Yunha Jang
+html, body {
+       height:100%;
+}
 
-Page Description: This is the main CSS file for this application and defines
-all of the styles required for all pages in the app.
-
-Files: index.hthml - Main page
-       css/main.css - the main style for this app
-       js/myFunction.js - Javascript functions & constants specific to this app
-       images/head.jpg - image used in this app
-*/
 body {
-    background-color: #FF5722;
-    color: white;
+       background-color: #FF8A65;
 }
 
-#inputInfo label{
-    text-align: right;
+.container {
+    background-color: #FF5722;
+    color: #FBE9E7;
+    height: 98%;
 }
+
 b {
-    margin-right: .2em;
+       margin-right: .2em;
 }
 span {
     color: #FBE9E7;
     font-size: 1.5em;
 }
+
 table {
     padding: 20px;
 }
-/*
-table {
-    border: 2px solid olivedrab;
-    width: 25em;
-    border-collapse: collapse;
-    margin: 1em;
-}
-#outputInfo th, #outputInfo td {
-    text-align: left;
-    width: 12em;
-    margin: 1em;
-    padding: 0.5em;
-}
-th {
-    color: darkgreen;
+
+label {
     font-size: 1.2em;
 }
 
-#price td {
-    border: 1px olivedrab dashed;
-    padding: .2em;
-    margin: 1em;
+#inputInfo label{
+       text-align: right;
 }
-
