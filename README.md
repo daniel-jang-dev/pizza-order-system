@@ -1,6 +1,6 @@
 # Pizza Order System
 
-![Alt text](screenshot.jpg)
+![Alt text](screenshot.png "screenshot.png")
 
 This is my first project in semester 2.
 
